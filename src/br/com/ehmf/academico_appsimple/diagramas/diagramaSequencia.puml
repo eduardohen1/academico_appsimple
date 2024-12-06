@@ -1,0 +1,30 @@
+@startuml
+actor Aluno
+participant "Sistema Acadêmico" as Sistema
+actor Professor
+
+Aluno -> Sistema: Solicitar Matrícula (Matéria)
+Sistema -> Sistema: Verificar Créditos Disponíveis
+alt Créditos Insuficientes
+    Sistema --> Aluno: Notificar Falha (Créditos Insuficientes)
+else Créditos Suficientes
+    Sistema -> Sistema: Verificar Pré-requisitos
+    alt Pré-requisito Não Atendido
+        Sistema --> Aluno: Notificar Falha (Pré-requisito Não Atendido)
+    else Pré-requisito Atendido
+        Sistema -> Sistema: Verificar Disponibilidade de Vagas
+        alt Sem Vagas Disponíveis
+            Sistema --> Aluno: Notificar Falha (Sem Vagas Disponíveis)
+        else Vagas Disponíveis
+            Sistema --> Professor: Solicitar Aprovação da Matrícula
+            Professor -> Sistema: Aceitar/Rejeitar Matrícula
+            alt Matrícula Rejeitada
+                Sistema --> Aluno: Notificar Falha (Matrícula Rejeitada)
+            else Matrícula Aceita
+                Sistema -> Sistema: Registrar Matrícula
+                Sistema --> Aluno: Confirmar Sucesso da Matrícula
+            end
+        end
+    end
+end
+@enduml

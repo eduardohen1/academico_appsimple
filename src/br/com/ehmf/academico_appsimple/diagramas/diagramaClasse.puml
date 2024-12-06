@@ -1,0 +1,64 @@
+@startuml
+' Classes principais
+class Pessoa {
+    - nome: String
+    - cpf: String
+    + getNome(): String
+    + getCpf(): String
+}
+
+class Aluno {
+    - turma: Turma
+    + getTurma(): Turma
+    + toString(): String
+}
+
+class Professor {
+    - especialidade: String
+    + getEspecialidade(): String
+    + lancarNota(aluno: Aluno, nota: double): void
+    + lancarFalta(aluno: Aluno, faltas: int): void
+    + aprovarMatricula(aluno: Aluno, materia: Materia): boolean
+    + toString(): String
+}
+
+class Turma {
+    - nome: String
+    + getNome(): String
+}
+
+class Materia {
+    - nome: String
+    - professor: Professor
+    + getNome(): String
+    + getProfessor(): Professor
+    + toString(): String
+}
+
+class Matricula {
+    - aluno: Aluno
+    - materia: Materia
+    - nota: double
+    - faltas: int
+    + getAluno(): Aluno
+    + getMateria(): Materia
+    + setNota(nota: double): void
+    + setFaltas(faltas: int): void
+    + toString(): String
+}
+
+interface Avaliacao {
+    + lancarNota(aluno: Aluno, nota: double): void
+    + lancarFalta(aluno: Aluno, faltas: int): void
+}
+
+' Relacionamentos
+Pessoa <|-- Aluno
+Pessoa <|-- Professor
+Professor ..|> Avaliacao
+Turma "1" <-- "n" Aluno
+Professor "1" <-- "n" Materia
+Materia "1" --> "n" Matricula
+Aluno "1" --> "n" Matricula
+
+@enduml

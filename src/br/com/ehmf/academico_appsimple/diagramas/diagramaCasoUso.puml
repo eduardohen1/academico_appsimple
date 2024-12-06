@@ -1,0 +1,25 @@
+@startuml
+left to right direction
+
+actor Professor
+actor Sistema
+
+usecase "Lançar Nota" as UC_LancarNota
+usecase "Validar Excesso de Faltas" as UC_ValidarFaltas
+usecase "Exibir Alerta de Faltas" as UC_AlertaFaltas
+usecase "Registrar Faltas no Sistema" as UC_RegistrarFaltas
+usecase "Validar Nota Fora da Média" as UC_ValidarNota
+usecase "Exibir Alerta de Nota Inválida" as UC_AlertaNota
+usecase "Registrar Nota no Sistema" as UC_RegistrarNota
+usecase "Atualizar Registro do Aluno" as UC_AtualizarAluno
+
+Professor --> UC_LancarNota
+Sistema --> UC_ValidarFaltas
+Sistema --> UC_AlertaFaltas
+Sistema --> UC_RegistrarFaltas
+Professor --> UC_ValidarNota
+Sistema --> UC_AlertaNota
+Sistema --> UC_RegistrarNota
+Sistema --> UC_AtualizarAluno
+
+@enduml
